@@ -1,0 +1,162 @@
+[
+  {
+    "id": "eval_01",
+    "category": "player_stats",
+    "question": "Who was the Player of the Tournament (MVP) in IPL 2026 and which team did he represent?",
+    "expected_answer": "Vaibhav Sooryavanshi played for Rajasthan Royals (RR) and was named Player of the Tournament (MVP).",
+    "key_entities": ["Vaibhav Sooryavanshi", "RR", "Rajasthan Royals"],
+    "target_router": ["players_and_squads", "player_stats"]
+  },
+  {
+    "id": "eval_02",
+    "category": "player_stats",
+    "question": "Who won the Orange Cap for scoring the most runs in IPL 2026, and what was his total tally?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) won the Orange Cap by scoring 776 runs.",
+    "key_entities": ["Vaibhav Sooryavanshi", "776", "RR"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_03",
+    "category": "player_stats",
+    "question": "Who claimed the Purple Cap for taking the most wickets in IPL 2026 and how many wickets did he take?",
+    "expected_answer": "Kagiso Rabada (GT) took the most wickets with 29 wickets to win the Purple Cap.",
+    "key_entities": ["Kagiso Rabada", "29", "GT"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_04",
+    "category": "player_stats",
+    "question": "What was the highest individual score of IPL 2026, who scored it, and against which opponent?",
+    "expected_answer": "KL Rahul playing for DC scored the highest individual score of 152* against PBKS.",
+    "key_entities": ["KL Rahul", "152*", "DC", "PBKS"],
+    "target_router": ["player_stats", "tournament_and_matches"]
+  },
+  {
+    "id": "eval_05",
+    "category": "player_stats",
+    "question": "Which player registered the best batting strike rate in IPL 2026 and what was the rate?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) recorded the best batting strike rate of 237.31.",
+    "key_entities": ["Vaibhav Sooryavanshi", "237.31", "RR"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_06",
+    "category": "player_stats",
+    "question": "Who had the best bowling economy in IPL 2026 and what was the figure?",
+    "expected_answer": "Sunil Narine of KKR had the best bowling economy rate at 6.64.",
+    "key_entities": ["Sunil Narine", "6.64", "KKR"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_07",
+    "category": "tournament_and_matches",
+    "question": "What were the total counts of sixes and fours hit across the entire IPL 2026 tournament according to the boundary meter?",
+    "expected_answer": "There were 1,426 sixes and 2,332 fours hit during the tournament.",
+    "key_entities": ["1426", "2332", "sixes", "fours"],
+    "target_router": ["tournament_and_matches", "player_stats"]
+  },
+  {
+    "id": "eval_08",
+    "category": "player_stats",
+    "question": "Who hit the most sixes in IPL 2026 and what was the total number?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) hit the most sixes with a total of 72 sixes.",
+    "key_entities": ["Vaibhav Sooryavanshi", "72", "RR"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_09",
+    "category": "tournament_and_matches",
+    "question": "How many total centuries were scored throughout the IPL 2026 season?",
+    "expected_answer": "There were 14 centuries scored in the tournament.",
+    "key_entities": ["14", "centuries"],
+    "target_router": ["tournament_and_matches", "player_stats"]
+  },
+  {
+    "id": "eval_10",
+    "category": "tournament_and_matches",
+    "question": "What was the highest team total in IPL 2026, which team scored it, and against whom?",
+    "expected_answer": "The highest team total was 265/4 scored by PBKS against DC.",
+    "key_entities": ["265/4", "PBKS", "DC"],
+    "target_router": ["tournament_and_matches"]
+  },
+  {
+    "id": "eval_11",
+    "category": "tournament_and_matches",
+    "question": "What was the lowest team total recorded in IPL 2026, which team was bowled out, and against whom?",
+    "expected_answer": "The lowest team total was 75/10 by DC against RCB.",
+    "key_entities": ["75/10", "DC", "RCB"],
+    "target_router": ["tournament_and_matches"]
+  },
+  {
+    "id": "eval_12",
+    "category": "player_stats",
+    "question": "Who set the all-time record for the most runs scored in a single IPL season, and how many runs did he make?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) set the record with 776 runs in the season.",
+    "key_entities": ["Vaibhav Sooryavanshi", "776", "RR"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_13",
+    "category": "player_stats",
+    "question": "Who set the record for the most sixes in a single IPL season, and how many did he hit?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) set the record with 72 sixes.",
+    "key_entities": ["Vaibhav Sooryavanshi", "72", "RR"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_14",
+    "category": "player_stats",
+    "question": "Who scored the fastest century in IPL 2026, in how many balls was it achieved, and against which team?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) scored the fastest century in 36 balls against SRH.",
+    "key_entities": ["Vaibhav Sooryavanshi", "36 balls", "SRH", "RR"],
+    "target_router": ["player_stats", "tournament_and_matches"]
+  },
+  {
+    "id": "eval_15",
+    "category": "player_stats",
+    "question": "Who holds the record for the highest individual score by an Indian player in IPL 2026 and what was the score?",
+    "expected_answer": "KL Rahul (DC) holds the record with an unbeaten score of 152*.",
+    "key_entities": ["KL Rahul", "152*", "DC"],
+    "target_router": ["player_stats"]
+  },
+  {
+    "id": "eval_16",
+    "category": "player_stats",
+    "question": "Who became the youngest Orange Cap winner in IPL history in 2026?",
+    "expected_answer": "Vaibhav Sooryavanshi (RR) became the youngest Orange Cap winner.",
+    "key_entities": ["Vaibhav Sooryavanshi", "RR", "Orange Cap"],
+    "target_router": ["player_stats", "players_and_squads"]
+  },
+  {
+    "id": "eval_17",
+    "category": "tournament_and_matches",
+    "question": "What was the highest successful run chase achieved in IPL 2026 and which teams were involved?",
+    "expected_answer": "The highest successful run chase was 264 by PBKS against DC.",
+    "key_entities": ["264", "PBKS", "DC"],
+    "target_router": ["tournament_and_matches"]
+  },
+  {
+    "id": "eval_18",
+    "category": "tournament_and_matches",
+    "question": "What was the record for the most runs scored on a single day in IPL 2026, and on which date did it happen?",
+    "expected_answer": "A total of 986 runs were scored on April 25, 2026.",
+    "key_entities": ["986", "April 25, 2026"],
+    "target_router": ["tournament_and_matches"]
+  },
+  {
+    "id": "eval_19",
+    "category": "player_stats",
+    "question": "Who smashed the fastest fifty (50) in IPL 2026, how many balls did it take, and which team did he play for?",
+    "expected_answer": "Urvil Patel playing for CSK hit the fastest fifty off just 13 balls.",
+    "key_entities": ["Urvil Patel", "13 balls", "CSK"],
+    "target_router": ["player_stats", "players_and_squads"]
+  },
+  {
+    "id": "eval_20",
+    "category": "tournament_and_matches",
+    "question": "What was the record for the most sixes hit on a single day in IPL 2026 and on which date was it recorded?",
+    "expected_answer": "A total of 59 sixes were hit on April 25, 2026.",
+    "key_entities": ["59", "April 25, 2026", "sixes"],
+    "target_router": ["tournament_and_matches"]
+  }
+]
