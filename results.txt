@@ -1,0 +1,77 @@
+=================================================================
+QUERY: Which team won the final match in IPL 2026 and at which venue?
+=================================================================
+  [ROUTE] ['tournament_and_matches'] (3.26s)
+  [RETRIEVE] 8 candidates (0.09s)
+      [RERANK_DEBUG] output='Okay, so this is the record for' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the first match' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='utter\nOkay, let me try to' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='utter\nOkay, so the user is' has_logprobs=True
+  [RERANK:llm] top score 0.00 (4.04s)
+  [WEB SEARCH] +4 snippets (4.50s)
+  [GENERATE] 
+Royal Challengers Bengaluru (RCB) won the 2026 IPL final by defeating Gujarat Titans (GT) by five wickets. The match was played at the Narendra Modi Stadium, where RCB chased down a target of 156 to reach 161/5 with 12 balls remaining. This victory made RCB only the third franchise to retain the IPL title after Chennai Super Kings and Mumbai Indians.
+  [GENERATE] done (7.13s)
+[Total 19.01s | web used: True | top score: 0.00]
+
+=================================================================
+QUERY: Who scored the most runs or hit the most sixes in the tournament?
+=================================================================
+  [ROUTE] ['player_stats'] (1.40s)
+  [RETRIEVE] 8 candidates (0.23s)
+      [RERANK_DEBUG] output=': Answer: yes\nOkay, the' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut this is not the' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: No, the answer is' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the document is not about' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: yes\nBut the document' has_logprobs=True
+      [RERANK_DEBUG] output=':  No, the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output=': none\nBut the question is about' has_logprobs=True
+  [RERANK:llm] top score 0.97 (5.27s)
+  [GENERATE] 
+Abhishek Sharma holds the record for both categories, scoring the most runs (380) and hitting the most sixes (28). Vaibhav Sooryavanshi is the second-highest scorer with 357 runs but trails Sharma in sixes with 32. KL Rahul ranks third in runs with 358, while Shreyas Iyer leads the sixes leaderboard among non-top-three scorers with 21.
+  [GENERATE] done (9.13s)
+[Total 16.04s | web used: False | top score: 0.97]
+
+=================================================================
+QUERY: What is the capacity of Narendra Modi Stadium, and which team tops the points table?
+=================================================================
+  [ROUTE] ['tournament_and_matches'] (1.43s)
+  [RETRIEVE] 8 candidates (0.21s)
+      [RERANK_DEBUG] output=': yes\nYes, the answer is' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='оказалось, что в этом случае' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='оказалось, что в этом случае' has_logprobs=True
+      [RERANK_DEBUG] output='enson\nOkay, so the user provided' has_logprobs=True
+  [RERANK:llm] top score 0.00 (3.07s)
+  [WEB SEARCH] +4 snippets (6.49s)
+  [GENERATE] 
+The Narendra Modi Stadium has a seating capacity of 132,000, making it the world's largest cricket stadium. The Rajasthan Royals currently top the provided points table standings with 10 points from 8 matches.
+  [GENERATE] done (7.38s)
+[Total 18.59s | web used: True | top score: 0.00]
+
+=================================================================
+QUERY: Who has the highest strike rate among batters?
+=================================================================
+  [ROUTE] ['player_stats'] (1.40s)
+  [RETRIEVE] 8 candidates (0.16s)
+      [RERANK_DEBUG] output=':Answer: yes\nOkay, so' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='No, the answer is not possible' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the document is not about' has_logprobs=True
+  [RERANK:llm] top score 0.99 (4.42s)
+  [GENERATE] 
+Priyansh Arya of PBKS holds the highest batting strike rate at 249.01 in IPL 2026, followed by Vaibhav Sooryavanshi (RR) at 234.86 and Abhishek Sharma (SRH) at 212.29. While Virat Kohli leads the league with the most fours (37), his strike rate is not listed in the provided data, whereas Priyansh Arya's performance includes six matches and six innings.
+  [GENERATE] done (8.89s)
+[Total 14.88s | web used: False | top score: 0.99]

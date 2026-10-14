@@ -1,0 +1,448 @@
+===========================================================================
+Running IPL 2026 Golden Evals (20 test cases)
+===========================================================================
+
+[01/20] Evaluating: Who was the Player of the Tournament (MVP) in IPL 2026 and which team did he represent?
+  [ROUTE] ['player_stats'] (5.95s)
+  [RETRIEVE] 8 candidates (0.62s)
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the answer to the' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the answer is not the' has_logprobs=True
+  [RERANK:llm] top score 0.00 (4.77s)
+  [WEB SEARCH] +4 snippets (3.19s)
+  [GENERATE] 
+Vaibhav Sooryavanshi of the Rajasthan Royals was named the IPL 2026 Player of the Tournament (MVP). He achieved this honor alongside winning the Orange Cap for his 776 runs and the Best Emerging Player award at just 15 years old. Although he missed out on the team trophy, which went to Royal Challengers Bengaluru, Sooryavanshi's performance as a 15-year-old opener was the standout individual achievement of the season.
+  [GENERATE] done (7.51s)
+ -> Answer       : Vaibhav Sooryavanshi of the Rajasthan Royals was named the IPL 2026 Player of the Tournament (MVP). He achieved this hon...
+ -> Router Match : PASS (Expected: ['players_and_squads', 'player_stats'], Got: ['player_stats'])
+ -> Entity Recall: PASS (2/3 matched)
+ -> LLM Judge    : PASS - The generated answer correctly identifies Vaibhav Sooryavanshi of Rajasthan Royals as the IPL 2026 MVP and includes additional accurate context regarding his age, runs scored, and awards.
+---------------------------------------------------------------------------
+[02/20] Evaluating: Who won the Orange Cap for scoring the most runs in IPL 2026, and what was his total tally?
+  [ROUTE] ['player_stats'] (1.39s)
+  [RETRIEVE] 8 candidates (0.21s)
+      [RERANK_DEBUG] output=': yes\nOkay, so the answer' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, but I need to check if' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, but I need to check if' has_logprobs=True
+      [RERANK_DEBUG] output='But the question is not about the' has_logprobs=True
+      [RERANK_DEBUG] output='No, the document does not provide' has_logprobs=True
+      [RERANK_DEBUG] output='No, the answer is not the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, but wait, the user is' has_logprobs=True
+  [RERANK:llm] top score 1.00 (4.42s)
+  [GENERATE] 
+Abhishek Sharma of the Sunrisers Hyderabad (SRH) won the Orange Cap with a total of 380 runs. He led the tournament's run-scoring leaderboard ahead of KL Rahul and Vaibhav Sooryavanshi, both of whom scored 358 and 357 runs respectively in 8 matches each. Sharma played all 8 innings for his team to achieve this highest tally.
+  [GENERATE] done (8.15s)
+ -> Answer       : Abhishek Sharma of the Sunrisers Hyderabad (SRH) won the Orange Cap with a total of 380 runs. He led the tournament's ru...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by claiming Abhishek Sharma won the Orange Cap with 380 runs in IPL 2026, whereas the ground truth correctly identifies Vaibhav Sooryavanshi (RR) with 776 runs. The generated answer also contains false details about other players' scores and match counts for a tournament that has not occurred.
+---------------------------------------------------------------------------
+[03/20] Evaluating: Who claimed the Purple Cap for taking the most wickets in IPL 2026 and how many wickets did he take?
+  [ROUTE] ['player_stats'] (1.41s)
+  [RETRIEVE] 8 candidates (0.22s)
+      [RERANK_DEBUG] output=': yes\nYes, the answer is' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nNo, the answer is' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, the document is about the' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output='But the question is about the most' has_logprobs=True
+      [RERANK_DEBUG] output='[...]\n\nBut the question is about' has_logprobs=True
+      [RERANK_DEBUG] output='No, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, the user is asking about' has_logprobs=True
+  [RERANK:llm] top score 0.00 (4.93s)
+  [WEB SEARCH] +4 snippets (3.25s)
+  [GENERATE] 
+Kagiso Rabada of Gujarat Titans won the IPL 2026 Purple Cap by taking 29 wickets in 17 matches. While a mid-season leaderboard lists Bhuvneshwar Kumar, Anshul Kamboj, and Eshan Malinga tied at 14 wickets each, Rabada's final tally of 29 wickets secured him the award.
+  [GENERATE] done (9.37s)
+ -> Answer       : Kagiso Rabada of Gujarat Titans won the IPL 2026 Purple Cap by taking 29 wickets in 17 matches. While a mid-season leade...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: PASS (2/3 matched)
+ -> LLM Judge    : PASS - The generated answer correctly identifies Kagiso Rabada as the winner with 29 wickets, matching all key facts from the ground truth.
+---------------------------------------------------------------------------
+[04/20] Evaluating: What was the highest individual score of IPL 2026, who scored it, and against which opponent?
+  [ROUTE] ['player_stats', 'tournament_and_matches'] (1.54s)
+  [RETRIEVE] 16 candidates (0.22s)
+      [RERANK_DEBUG] output=': no\nBut the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the answer is not the' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: yes\nThe answer is' has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes, the answer is no,' has_logprobs=True
+      [RERANK_DEBUG] output='lack of data on the highest individual' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output=': yes\n\nOkay, so the document' has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes\nYes\nYes\nYes' has_logprobs=True
+      [RERANK_DEBUG] output=': yes\n\nSo the answer is yes' has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes\nYes\nYes\nYes' has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes\nYes\nYes\nYes' has_logprobs=True
+      [RERANK_DEBUG] output=': yes\n\nOkay, so the user' has_logprobs=True
+      [RERANK_DEBUG] output=': yes\n\nOkay, so the user' has_logprobs=True
+      [RERANK_DEBUG] output=': yes\n\nSo the answer is yes' has_logprobs=True
+  [RERANK:llm] top score 0.94 (9.03s)
+  [GENERATE] 
+The highest individual score in IPL 2026 was 101 runs by Sanju Samson for CSK against MI at Wankhede Stadium on April 23, 2026. This performance made him the top scorer of that specific match and placed him fifth on the league-wide most fours leaderboard with 33 boundaries. While other matches featured high scores like Ayush Matre's 73 runs for PBKS against CSK or Rinku Singh's 83 runs for KKR against LSG, Samson's century remains the single highest recorded individual innings in the provided data.
+  [GENERATE] done (8.33s)
+ -> Answer       : The highest individual score in IPL 2026 was 101 runs by Sanju Samson for CSK against MI at Wankhede Stadium on April 23...
+ -> Router Match : PASS (Expected: ['player_stats', 'tournament_and_matches'], Got: ['player_stats', 'tournament_and_matches'])
+ -> Entity Recall: FAIL (1/4 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by claiming Sanju Samson scored 101 runs for CSK against MI, whereas the ground truth states KL Rahul scored 152* for DC against PBKS.
+---------------------------------------------------------------------------
+[05/20] Evaluating: Which player registered the best batting strike rate in IPL 2026 and what was the rate?
+  [ROUTE] ['player_stats'] (1.40s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output="Okay, that's the data. So" has_logprobs=True
+      [RERANK_DEBUG] output="Okay, that's the data. So" has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output="Okay, that's the data. So" has_logprobs=True
+      [RERANK_DEBUG] output="Okay, that's the data. So" has_logprobs=True
+      [RERANK_DEBUG] output=':correct answer is yes\nYes,' has_logprobs=True
+  [RERANK:llm] top score 0.63 (4.01s)
+  [GENERATE] 
+Based on the provided context, Priyansh Arya of PBKS registered the best batting strike rate in IPL 2026 at 249.01. He achieved this figure across 6 matches and 6 innings, significantly outperforming the next highest rate recorded by Vaibhav Sooryavanshi (234.86). While Arya's stats are listed as rank 1 for strike rate, he is not present in the top 10 for batting average or total runs.
+  [GENERATE] done (7.90s)
+ -> Answer       : Based on the provided context, Priyansh Arya of PBKS registered the best batting strike rate in IPL 2026 at 249.01. He a...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by claiming Priyansh Arya had the best strike rate (249.01) instead of Vaibhav Sooryavanshi (237.31), and incorrectly states Sooryavanshi's rate as 234.86.
+---------------------------------------------------------------------------
+[06/20] Evaluating: Who had the best bowling economy in IPL 2026 and what was the figure?
+  [ROUTE] ['player_stats'] (1.41s)
+  [RETRIEVE] 8 candidates (0.21s)
+      [RERANK_DEBUG] output=': yes\nOkay, so the user' has_logprobs=True
+      [RERANK_DEBUG] output="Okay, so that's the data for" has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output="Okay, so that's the top bow" has_logprobs=True
+      [RERANK_DEBUG] output="Okay, that's the data. So" has_logprobs=True
+      [RERANK_DEBUG] output="Okay, that's the data for the" has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the question is about' has_logprobs=True
+      [RERANK_DEBUG] output="Okay, so that's the data for" has_logprobs=True
+  [RERANK:llm] top score 1.00 (3.96s)
+  [GENERATE] 
+Mohsin Khan of LSG had the best bowling economy in IPL 2026 with a figure of 6.37 runs per over. He led the leaderboard despite playing only four matches, while Bhuvneshwar Kumar ranked second with an economy of 7.61 across eight innings.
+  [GENERATE] done (7.07s)
+ -> Answer       : Mohsin Khan of LSG had the best bowling economy in IPL 2026 with a figure of 6.37 runs per over. He led the leaderboard ...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (0/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by claiming Mohsin Khan had the best economy (6.37) instead of Sunil Narine (6.64), and incorrectly cites IPL 2026 as a completed season with specific match data.
+---------------------------------------------------------------------------
+[07/20] Evaluating: What were the total counts of sixes and fours hit across the entire IPL 2026 tournament according to the boundary meter?
+  [ROUTE] ['player_stats'] (1.42s)
+  [RETRIEVE] 8 candidates (0.21s)
+      [RERANK_DEBUG] output=": I think that's the answer to" has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes, this is the answer to' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nSo, the answer is' has_logprobs=True
+      [RERANK_DEBUG] output=': answer: no\n\nBut the answer' has_logprobs=True
+      [RERANK_DEBUG] output=':\nOkay, so the user is asking' has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes, this is the answer to' has_logprobs=True
+      [RERANK_DEBUG] output=": I think that's the answer to" has_logprobs=True
+  [RERANK:llm] top score 0.19 (4.02s)
+  [WEB SEARCH] +4 snippets (4.29s)
+  [GENERATE] 
+According to the boundary meter data, the IPL 2026 season recorded a record-breaking total of 1,426 sixes and 2,332 fours. These figures represent significant increases over the previous season's records, marking it as the most productive batting season in IPL history.
+  [GENERATE] done (6.63s)
+ -> Answer       : According to the boundary meter data, the IPL 2026 season recorded a record-breaking total of 1,426 sixes and 2,332 four...
+ -> Router Match : PASS (Expected: ['tournament_and_matches', 'player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (2/4 matched)
+ -> LLM Judge    : PASS - The generated answer correctly identifies the specific counts of sixes (1,426) and fours (2,332) as stated in the ground truth, fulfilling all key factual requirements.
+---------------------------------------------------------------------------
+[08/20] Evaluating: Who hit the most sixes in IPL 2026 and what was the total number?
+  [ROUTE] ['player_stats'] (1.42s)
+  [RETRIEVE] 8 candidates (0.21s)
+      [RERANK_DEBUG] output=':\nOkay, so the user is asking' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut wait, the answer' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: No, the record is' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut the question is about' has_logprobs=True
+      [RERANK_DEBUG] output='No, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output=':\nOkay, so the user is asking' has_logprobs=True
+  [RERANK:llm] top score 0.30 (5.49s)
+  [WEB SEARCH] +4 snippets (3.58s)
+  [GENERATE] 
+Vaibhav Sooryavanshi hit the most sixes in IPL 2026 with a total of 72, breaking Chris Gayle's record. This figure is significantly higher than his leaderboard count of 32 because it includes all matches played across the season, whereas the leaderboard reflects only eight matches. He achieved this feat by needing just 15 balls to surpass Gayle's previous high of 59 sixes in a single match against Sunrisers Hyderabad.
+  [GENERATE] done (9.57s)
+ -> Answer       : Vaibhav Sooryavanshi hit the most sixes in IPL 2026 with a total of 72, breaking Chris Gayle's record. This figure is si...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: PASS (2/3 matched)
+ -> LLM Judge    : PASS - The generated answer correctly identifies Vaibhav Sooryavanshi as the player with the most sixes (72) in IPL 2026, matching the ground truth exactly. The additional context provided about breaking Chris Gayle's record and the discrepancy between leaderboard counts is factually consistent with the core claim.
+---------------------------------------------------------------------------
+[09/20] Evaluating: How many total centuries were scored throughout the IPL 2026 season?
+  [ROUTE] ['player_stats'] (1.39s)
+  [RETRIEVE] 8 candidates (1.49s)
+      [RERANK_DEBUG] output=': no\nBut this is a single' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: yes\nThe answer is' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: yes\nThe answer is' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut this is the only' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo, the answer is no.' has_logprobs=True
+  [RERANK:llm] top score 0.82 (4.08s)
+  [GENERATE] 
+Based on the provided context, only one century was recorded in the IPL 2026 season, scored by Abhishek Sharma of SRH. The detailed player statistics confirm that while several batsmen achieved multiple half-centuries (fifties), no other player is listed with a "Hundreds" count greater than zero.
+  [GENERATE] done (7.00s)
+ -> Answer       : Based on the provided context, only one century was recorded in the IPL 2026 season, scored by Abhishek Sharma of SRH. T...
+ -> Router Match : PASS (Expected: ['tournament_and_matches', 'player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (1/2 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by stating only one century was scored, whereas the ground truth confirms there were 14 centuries in the IPL 2026 season.
+---------------------------------------------------------------------------
+[10/20] Evaluating: What was the highest team total in IPL 2026, which team scored it, and against whom?
+  [ROUTE] ['tournament_and_matches'] (1.42s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output='Okay, so this document is about the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is about the' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nNo\nNo\nNo' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is about the' has_logprobs=True
+      [RERANK_DEBUG] output='…\nNo, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output="…\nNo, that's not the answer" has_logprobs=True
+      [RERANK_DEBUG] output=': No, this is not the record' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is about the' has_logprobs=True
+  [RERANK:llm] top score 0.06 (2.92s)
+  [WEB SEARCH] +4 snippets (7.73s)
+  [GENERATE] 
+Based on the provided context, Sunrisers Hyderabad holds the record for the highest team total in IPL history with 286/6 against Rajasthan Royals in 2025. However, within the 2026 season specifically, Punjab Kings achieved a mammoth score of 265/4 against Delhi Capitals at Mullanpur, which is noted as the highest score of that season so far.
+  [GENERATE] done (8.14s)
+ -> Answer       : Based on the provided context, Sunrisers Hyderabad holds the record for the highest team total in IPL history with 286/6...
+ -> Router Match : PASS (Expected: ['tournament_and_matches'], Got: ['tournament_and_matches'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by including incorrect historical data (Sunrisers Hyderabad's 286/6 in 2025) and fails to explicitly state that PBKS scored 265/4 against DC as the highest total for IPL 2026, instead framing it only as 'the highest score of that season so far'.
+---------------------------------------------------------------------------
+[11/20] Evaluating: What was the lowest team total recorded in IPL 2026, which team was bowled out, and against whom?
+  [ROUTE] ['tournament_and_matches'] (1.40s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=': no\n\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output='…\nBut the answer is not here.' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking for' has_logprobs=True
+      [RERANK_DEBUG] output='…\nBut the answer is not here.' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nNo\nNo\nNo' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the document is not about' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking for' has_logprobs=True
+  [RERANK:llm] top score 0.06 (2.92s)
+  [WEB SEARCH] +4 snippets (4.14s)
+  [GENERATE] 
+The lowest team total in IPL 2026 was 71/10, posted by Delhi Capitals against Royal Challengers Bengaluru at the Arun Jaitley Stadium. This record is confirmed by CricketStudio's data for the match played on April 27, 2026. While other sources mention lower totals like RCB's 49 from 2017 or SRH's 86 from 2026, these belong to different seasons and do not apply to IPL 2026. Therefore, Delhi Capitals hold the lowest team total record for the 2026 season.
+  [GENERATE] done (6.85s)
+ -> Answer       : The lowest team total in IPL 2026 was 71/10, posted by Delhi Capitals against Royal Challengers Bengaluru at the Arun Ja...
+ -> Router Match : PASS (Expected: ['tournament_and_matches'], Got: ['tournament_and_matches'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by stating the lowest total was 71/10 (DC vs RCB), whereas the ground truth specifies 75/10 (DC vs RCB). Additionally, the generated answer incorrectly cites a specific date and source for this non-existent match.
+---------------------------------------------------------------------------
+[12/20] Evaluating: Who set the all-time record for the most runs scored in a single IPL season, and how many runs did he make?
+  [ROUTE] ['player_stats'] (1.41s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=':\nOkay, so the user is asking' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut this is not the' has_logprobs=True
+      [RERANK_DEBUG] output='no\nno\nno\nno\n' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nNo, the document does' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut this is not the' has_logprobs=True
+      [RERANK_DEBUG] output='no\nno\nno\nno\n' has_logprobs=True
+      [RERANK_DEBUG] output=': No, this is not the correct' has_logprobs=True
+      [RERANK_DEBUG] output='no\nno\nno\nno\n' has_logprobs=True
+  [RERANK:llm] top score 0.01 (3.72s)
+  [WEB SEARCH] +4 snippets (2.43s)
+  [GENERATE] 
+Based on the provided context, the all-time record for the most runs in a single IPL season is held by Virat Kohli with 351 runs in IPL 2026. While web results mention Kohli's career total of 9,000 runs and Sooryavanshi winning the 2026 Orange Cap at age 15, the specific leaderboard for "Most Runs in a Single IPL Season" lists Kohli as the top scorer with 351 runs.
+  [GENERATE] done (7.09s)
+ -> Answer       : Based on the provided context, the all-time record for the most runs in a single IPL season is held by Virat Kohli with ...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (0/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by incorrectly identifying Virat Kohli as the record holder with 351 runs, whereas the ground truth correctly identifies Vaibhav Sooryavanshi with 776 runs.
+---------------------------------------------------------------------------
+[13/20] Evaluating: Who set the record for the most sixes in a single IPL season, and how many did he hit?
+  [ROUTE] ['player_stats'] (1.41s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=':\nOkay, so the user is asking' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the question is about' has_logprobs=True
+      [RERANK_DEBUG] output=': none\n: no\n: no' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nBut the document is not' has_logprobs=True
+      [RERANK_DEBUG] output='no\nOkay, the user is asking' has_logprobs=True
+  [RERANK:llm] top score 0.29 (5.36s)
+  [WEB SEARCH] +4 snippets (5.67s)
+  [GENERATE] 
+Vaibhav Sooryavanshi set the record for the most sixes in a single IPL season with 32 hits. He achieved this feat during the 2026 season while playing for Rajasthan Royals, surpassing previous all-time leaders like Chris Gayle who holds the career record of 357 sixes. Sooryavanshi also became the first teenager to score over 700 runs in an IPL season, scoring 776 runs with a strike rate of 234.86.
+  [GENERATE] done (11.15s)
+ -> Answer       : Vaibhav Sooryavanshi set the record for the most sixes in a single IPL season with 32 hits. He achieved this feat during...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by stating Vaibhav Sooryavanshi hit 32 sixes instead of the correct 72. Additionally, it hallucinates a 2026 season and specific run statistics not present in the ground truth.
+---------------------------------------------------------------------------
+[14/20] Evaluating: Who scored the fastest century in IPL 2026, in how many balls was it achieved, and against which team?
+  [ROUTE] ['player_stats', 'tournament_and_matches'] (1.46s)
+  [RETRIEVE] 16 candidates (0.20s)
+      [RERANK_DEBUG] output=':\nNo, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the top batter' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output=': No, this is not a bow' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nBut the answer to the' has_logprobs=True
+      [RERANK_DEBUG] output=': No, this is not a bow' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the first century' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is about the' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nNo\nNo\nNo' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='…\nBut the answer is not here.' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is about the' has_logprobs=True
+      [RERANK_DEBUG] output='…\nBut the answer is not here.' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the document is about the' has_logprobs=True
+  [RERANK:llm] top score 0.02 (6.45s)
+  [WEB SEARCH] +4 snippets (2.97s)
+  [GENERATE] 
+Vaibhav Sooryavanshi of Rajasthan Royals scored the fastest century in IPL 2026, reaching the milestone in just 36 balls against Sunrisers Hyderabad. This performance also marked his second-ever IPL ton and ranked him third on the tournament's runs leaderboard with 357 runs. While Shubman Gill scored the first century of the season on March 28, Sooryavanshi's 36-ball achievement remains the quickest in the entire tournament.
+  [GENERATE] done (7.95s)
+ -> Answer       : Vaibhav Sooryavanshi of Rajasthan Royals scored the fastest century in IPL 2026, reaching the milestone in just 36 balls...
+ -> Router Match : PASS (Expected: ['player_stats', 'tournament_and_matches'], Got: ['player_stats', 'tournament_and_matches'])
+ -> Entity Recall: FAIL (2/4 matched)
+ -> LLM Judge    : PASS - The generated answer correctly identifies Vaibhav Sooryavanshi, the team (RR), the ball count (36), and the opponent (SRH) as per the ground truth.
+---------------------------------------------------------------------------
+[15/20] Evaluating: Who holds the record for the highest individual score by an Indian player in IPL 2026 and what was the score?
+  [ROUTE] ['player_stats'] (1.38s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output=':\nOkay, so the document is providing' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='no\nno\nno\nno\n' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the top batter' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so the user is asking about' has_logprobs=True
+  [RERANK:llm] top score 0.03 (3.47s)
+  [WEB SEARCH] +4 snippets (4.50s)
+  [GENERATE] 
+K L Rahul holds the record for the highest individual score by an Indian player in IPL 2026 with a not-out innings of 152 runs. He achieved this against Punjab Kings at the Arun Jaitley Stadium on April 25, scoring at a strike rate of 226.87 with 16 fours and nine sixes. This performance stands as the highest individual score in the tournament, surpassing the next best by 17 runs.
+  [GENERATE] done (7.32s)
+ -> Answer       : K L Rahul holds the record for the highest individual score by an Indian player in IPL 2026 with a not-out innings of 15...
+ -> Router Match : PASS (Expected: ['player_stats'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (0/3 matched)
+ -> LLM Judge    : PASS - The generated answer correctly identifies KL Rahul and his score of 152* as the record holder, matching all key facts from the ground truth.
+---------------------------------------------------------------------------
+[16/20] Evaluating: Who became the youngest Orange Cap winner in IPL history in 2026?
+  [ROUTE] ['player_stats'] (1.38s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=': Answer: yes\nThe answer is' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the document is not helpful' has_logprobs=True
+      [RERANK_DEBUG] output=': none\n\nNo, the document is' has_logprobs=True
+      [RERANK_DEBUG] output=':  No, the document does not' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+  [RERANK:llm] top score 0.49 (4.35s)
+  [GENERATE] 
+Abhishek Sharma of SRH won the 2026 Orange Cap with 380 runs, but the provided context does not specify his age or confirm if he holds the record for being the youngest winner in IPL history. The data confirms he is the top run-scorer on the leaderboard, yet lacks the biographical detail required to answer the "youngest" aspect of your query.
+  [GENERATE] done (8.06s)
+ -> Answer       : Abhishek Sharma of SRH won the 2026 Orange Cap with 380 runs, but the provided context does not specify his age or confi...
+ -> Router Match : PASS (Expected: ['player_stats', 'players_and_squads'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by naming Abhishek Sharma instead of Vaibhav Sooryavanshi and incorrectly claims he won in 2026 with 380 runs. Additionally, it fails to provide the specific age or record confirmation mentioned in the ground truth.
+---------------------------------------------------------------------------
+[17/20] Evaluating: What was the highest successful run chase achieved in IPL 2026 and which teams were involved?
+  [ROUTE] ['tournament_and_matches'] (1.39s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=':\nYes, the best successful run chase' has_logprobs=True
+      [RERANK_DEBUG] output=':\nYes, the best successful run chase' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo\nOkay, so the user' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo\n\nNo, the answer is' has_logprobs=True
+      [RERANK_DEBUG] output=':\nOkay, so this is the first' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the first match' has_logprobs=True
+      [RERANK_DEBUG] output=':\nNo\n\nBut the answer is not' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the first match' has_logprobs=True
+  [RERANK:llm] top score 0.00 (3.84s)
+  [WEB SEARCH] +4 snippets (2.71s)
+  [GENERATE] 
+The highest successful run chase in IPL 2026 was 265/4, achieved by the Punjab Kings against the Delhi Capitals on April 25. This record is confirmed across multiple sources as the top achievement for the season, surpassing other notable chases like SRH's 244/7 against MI. While KL Rahul scored a significant 152* in this match, the specific target of 264 was successfully defended by Punjab Kings at Arun Jaitley Stadium.
+  [GENERATE] done (7.33s)
+ -> Answer       : The highest successful run chase in IPL 2026 was 265/4, achieved by the Punjab Kings against the Delhi Capitals on April...
+ -> Router Match : PASS (Expected: ['tournament_and_matches'], Got: ['tournament_and_matches'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contains multiple factual errors: it claims the target was 265/4 (Ground Truth says 264), incorrectly states the teams as Punjab Kings vs Delhi Capitals (Ground Truth says PBKS vs DC, implying a different match context or error in team names), and falsely attributes the record to April 2026. Additionally, it contradicts itself by saying the target was 'successfully defended' while claiming it was a successful chase.
+---------------------------------------------------------------------------
+[18/20] Evaluating: What was the record for the most runs scored on a single day in IPL 2026, and on which date did it happen?
+  [ROUTE] ['player_stats', 'tournament_and_matches'] (1.46s)
+  [RETRIEVE] 16 candidates (0.20s)
+      [RERANK_DEBUG] output=': Answer: yes\nThe answer is' has_logprobs=True
+      [RERANK_DEBUG] output=': Answer: No\nBut the answer' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the top batter' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut this is the top' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this is the top batter' has_logprobs=True
+      [RERANK_DEBUG] output='gone\nno\nno\nno\n' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the record is not the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is providing the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is providing the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is providing the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is a single' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is providing the' has_logprobs=True
+      [RERANK_DEBUG] output=': yes\n\nOkay, so this is' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is providing the' has_logprobs=True
+      [RERANK_DEBUG] output='Okay, so this document is a single' has_logprobs=True
+  [RERANK:llm] top score 0.92 (7.46s)
+  [GENERATE] 
+The provided context contains only cumulative season leaderboards for runs, strike rates, averages, and individual player records; it does not include data on daily run totals or specific match dates. Consequently, the record for the most runs scored in a single day during IPL 2026 and the date it occurred cannot be determined from the available information.
+  [GENERATE] done (8.15s)
+ -> Answer       : The provided context contains only cumulative season leaderboards for runs, strike rates, averages, and individual playe...
+ -> Router Match : PASS (Expected: ['tournament_and_matches'], Got: ['player_stats', 'tournament_and_matches'])
+ -> Entity Recall: FAIL (0/2 matched)
+ -> LLM Judge    : FAIL - The generated answer correctly identifies that the information is missing from the context, whereas the ground truth provides specific data (986 runs on April 25, 2026). Since the model refuses to answer based on lack of context rather than providing the facts found in the ground truth, it fails the criteria for a correct and complete response.
+---------------------------------------------------------------------------
+[19/20] Evaluating: Who smashed the fastest fifty (50) in IPL 2026, how many balls did it take, and which team did he play for?
+  [ROUTE] ['player_stats'] (1.39s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=': no\nBut the answer to the' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the record is not in' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nBut if you look at' has_logprobs=True
+      [RERANK_DEBUG] output='located in the middle of the world,' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the answer to the' has_logprobs=True
+      [RERANK_DEBUG] output=': no\nBut the answer to the' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=": No\nBut I don't know" has_logprobs=True
+  [RERANK:llm] top score 0.00 (4.64s)
+  [WEB SEARCH] +4 snippets (3.11s)
+  [GENERATE] 
+Vaibhav Suryavanshi of Rajasthan Royals smashed the fastest fifty in IPL 2026, completing it in just 15 balls. While Urvil Patel also holds a joint-fastest record at 13 balls, Suryavanshi's innings is explicitly highlighted as the record-breaking one for the 2026 season. This explosive performance contributed to his high batting strike rate of 234.86 and total runs of 357 in the tournament.
+  [GENERATE] done (8.93s)
+ -> Answer       : Vaibhav Suryavanshi of Rajasthan Royals smashed the fastest fifty in IPL 2026, completing it in just 15 balls. While Urv...
+ -> Router Match : PASS (Expected: ['player_stats', 'players_and_squads'], Got: ['player_stats'])
+ -> Entity Recall: PASS (2/3 matched)
+ -> LLM Judge    : FAIL - The generated answer contradicts the ground truth by claiming Vaibhav Suryavanshi holds the record for IPL 2026, whereas the ground truth identifies Urvil Patel as the player who hit the fastest fifty in that tournament.
+---------------------------------------------------------------------------
+[20/20] Evaluating: What was the record for the most sixes hit on a single day in IPL 2026 and on which date was it recorded?
+  [ROUTE] ['player_stats'] (1.38s)
+  [RETRIEVE] 8 candidates (0.20s)
+      [RERANK_DEBUG] output=': Answer: yes\nThe answer is' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the answer is no.' has_logprobs=True
+      [RERANK_DEBUG] output=': no\n\nBut the answer is no' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+      [RERANK_DEBUG] output=': No\nBut the answer to the' has_logprobs=True
+      [RERANK_DEBUG] output=': No, the record for the most' has_logprobs=True
+      [RERANK_DEBUG] output='l\nOkay, the user is asking' has_logprobs=True
+      [RERANK_DEBUG] output='' has_logprobs=True
+  [RERANK:llm] top score 0.96 (5.31s)
+  [GENERATE] 
+The provided context contains the IPL 2026 leaderboard for the total number of sixes hit across all matches, with Vaibhav Sooryavanshi leading at 32. However, the data does not include records for the most sixes hit on a single day or the specific dates when these records were set.
+  [GENERATE] done (9.61s)
+ -> Answer       : The provided context contains the IPL 2026 leaderboard for the total number of sixes hit across all matches, with Vaibha...
+ -> Router Match : FAIL (Expected: ['tournament_and_matches'], Got: ['player_stats'])
+ -> Entity Recall: FAIL (1/3 matched)
+ -> LLM Judge    : FAIL - The generated answer claims the context lacks information about single-day records, whereas the ground truth explicitly states that 59 sixes were hit on April 25, 2026. The generated answer fails to provide the correct record and date.
+---------------------------------------------------------------------------
+
+============================================================
+Evaluation Results Summary
+============================================================
+Routing Accuracy       : 95.0% (19/20)
+Key Entity Recall Rate : 20.0% (4/20)
+LLM Judge Factual Score: 30.0% (6/20)
+============================================================
