@@ -1,202 +1,136 @@
-import os
-from concurrent.futures import ThreadPoolExecutor
-from typing import List, Dict
+import time
+from typing import List
 from pydantic import BaseModel
 from langgraph.graph import StateGraph, END, START
 from dotenv import load_dotenv
 
-from utils import load_all_ipl_documents, build_retrievers, parse_response
-from models import generation_models, rerank_local, web_search
-from prompt_set import (
-    router_prompt,
-    generation_prompt,
-    extract_keyinfo_prompt,
-    validate_contents_prompt,
-    supplement_query_prompt
-)
+from utils import load_all_ipl_documents, GroupIndex, embeddings, parse_response
+from models import generation_models, rerank_local, web_search, RERANK_MIN, RERANK_BACKEND, RERANK_MODEL
+from prompt_set import router_prompt, generation_prompt
 
 load_dotenv(override=True)
 
 DATA_DIR = "./data"
 
-print("Scanning and indexing IPL dataset CSVs...")
-docs_grouped = load_all_ipl_documents(DATA_DIR)
-retriever_dict = {}
+# ---------- build once at import ----------
+indexes: dict[str, GroupIndex] = {
+    name: GroupIndex(name, docs)
+    for name, docs in load_all_ipl_documents(DATA_DIR).items()
+    if docs
+}
 
-for group_name, doc_list in docs_grouped.items():
-    if doc_list:
-        v_retriever, bm_retriever = build_retrievers(doc_list)
-        retriever_dict[f"{group_name}_vector"] = v_retriever
-        retriever_dict[f"{group_name}_bm25"] = bm_retriever
-        print(f"Indexed [{group_name}]: {len(doc_list)} records")
-    else:
-        print(f"[Notice] No documents found for [{group_name}]. Ensure CSVs exist in {DATA_DIR}.")
 
+# ---------- state ----------
 class AgentState(BaseModel):
     question: str
     router: List[str] = []
-    contexts: Dict[str, List[str]] = {}
-    final_answer: str = ""
+    candidates: List[str] = []
     rerank_context_list: List[str] = []
-    retry_count: int = 0
-    is_content_valid: bool = False
+    top_score: float = 0.0
+    used_web: bool = False
+    final_answer: str = ""
 
+
+def _format(ctx: list[str]) -> str:
+    return "".join(f"## Content {i}:\n{c}\n" for i, c in enumerate(ctx))
+
+
+# ---------- nodes ----------
 def route_database(state: AgentState):
-    prompt = router_prompt(state.question)
-    response = generation_models(prompt, enable_thinking=False)
-    router_res = parse_response(response)
-    
-    valid_keys = [k for k in docs_grouped.keys() if f"{k}_vector" in retriever_dict]
-    chosen = [r for r in router_res if r in valid_keys] if isinstance(router_res, list) else []
-    
-    return {"router": chosen if chosen else valid_keys}
-
-executor = ThreadPoolExecutor(max_workers=4)
-
-def _retrieve_one(db_name: str, question: str):
-    potential_res = []
+    t0 = time.perf_counter()
     try:
-        vec_name = f"{db_name}_vector"
-        if vec_name in retriever_dict and retriever_dict[vec_name]:
-            docs = retriever_dict[vec_name].invoke(question)
-            for d in docs:
-                potential_res.append(d.page_content)
+        raw = generation_models(router_prompt(state.question), enable_thinking=False, max_tokens=60)
+    except RuntimeError as e:  # empty reply -> don't crash, just search every group
+        print(f"  [ROUTE] LLM returned nothing ({e}); using all groups")
+        raw = ""
+    parsed = parse_response(raw)
+    if not isinstance(parsed, list):
+        parsed = []
+    chosen = [r for r in parsed if r in indexes]
+    if not chosen:  # JSON failed -> look for group names mentioned in the raw text, else search all
+        chosen = [k for k in indexes if k in raw] or list(indexes)
+    print(f"  [ROUTE] {chosen} ({time.perf_counter() - t0:.2f}s)")
+    return {"router": chosen}
 
-        bm_name = f"{db_name}_bm25"
-        if bm_name in retriever_dict and retriever_dict[bm_name]:
-            docs = retriever_dict[bm_name](question)
-            for item in docs:
-                potential_res.append(item["page_content"])
 
-        return db_name, list(set(potential_res))
-    except Exception as e:
-        return db_name, [f"[retrieval fail: {str(e)}]"]
+def retrieve(state: AgentState):
+    t0 = time.perf_counter()
+    qvec = embeddings.embed_query(state.question)  # ONE embedding call, reused for every group
+    seen, candidates = set(), []
+    for name in state.router:
+        for text in indexes[name].search(state.question, qvec, k=8):
+            if text not in seen:  # order-preserving de-dup (replaces list(set(...)))
+                seen.add(text)
+                candidates.append(text)
+    print(f"  [RETRIEVE] {len(candidates)} candidates ({time.perf_counter() - t0:.2f}s)")
+    return {"candidates": candidates}
 
-def retrieve_parallel(state: AgentState):
-    futures = [
-        executor.submit(_retrieve_one, db_name, state.question)
-        for db_name in state.router
-    ]
-    results = [future.result() for future in futures]
-    return {"contexts": {db: content for db, content in results}}
 
 def rerank_context(state: AgentState):
-    parts = []
-    for content in state.contexts.values():
-        parts.extend(content)
-    
-    ranked_docs = rerank_local(state.question, parts, top_n=6)
-    return {"rerank_context_list": ranked_docs}
+    t0 = time.perf_counter()
+    ranked = rerank_local(state.question, state.candidates, top_n=6)
+    top = ranked[0][1] if ranked else 0.0
+    print(f"  [RERANK:{RERANK_BACKEND}] top score {top:.2f} ({time.perf_counter() - t0:.2f}s)")
+    return {"rerank_context_list": [p for p, _ in ranked], "top_score": top}
 
-def filter_content(state: AgentState):
-    if not state.rerank_context_list:
-        return {"rerank_context_list": []}
-        
-    contents = "".join([f"## Content {i}:\n{ct}\n" for i, ct in enumerate(state.rerank_context_list)])
-    prompt = extract_keyinfo_prompt(state.question, contents)
-    response = generation_models(prompt, enable_thinking=False)
-    relative_idx = parse_response(response)
-
-    chosen = []
-    for idx in relative_idx:
-        if isinstance(idx, int) and 0 <= idx < len(state.rerank_context_list):
-            chosen.append(state.rerank_context_list[idx])
-            
-    updated_list = chosen if chosen else state.rerank_context_list
-    return {"rerank_context_list": updated_list}
-
-def valid_and_refine_node(state: AgentState):
-    if not state.rerank_context_list:
-        return {"is_content_valid": False}
-        
-    contents = "".join([f"## Content {i}:\n{ct}\n" for i, ct in enumerate(state.rerank_context_list)])
-    prompt = validate_contents_prompt(state.question, contents)
-    response = generation_models(prompt, enable_thinking=False)
-    res = parse_response(response)
-    
-    is_valid = bool(res and str(res[0]).strip().lower() == "yes")
-    return {"is_content_valid": is_valid}
 
 def search_node(state: AgentState):
-    contents = "".join([f"## Content {i}:\n{ct}\n" for i, ct in enumerate(state.rerank_context_list)])
-    prompt = supplement_query_prompt(state.question, contents)
-    response = generation_models(prompt, enable_thinking=False)
-    supple_query = parse_response(response)
+    t0 = time.perf_counter()
+    res = web_search(f"IPL 2026 {state.question}")  # raw question, no extra LLM call
+    snippets = [f"[Web Result]: {r['content']}" for r in res.get("results", []) if "content" in r]
+    print(f"  [WEB SEARCH] +{len(snippets)} snippets ({time.perf_counter() - t0:.2f}s)")
+    return {"rerank_context_list": (snippets + state.rerank_context_list)[:8], "used_web": True}
 
-    query = supple_query[0] if (supple_query and isinstance(supple_query, list)) else state.question
-    search_res = web_search(query)
-    
-    new_contents = [f"[Web Result]: {item['content']}" for item in search_res.get("results", []) if "content" in item]
-    combined = new_contents + list(state.rerank_context_list)
-    
-    return {
-        "retry_count": state.retry_count + 1,
-        "rerank_context_list": combined[:8]
-    }
 
 def generate_answer(state: AgentState):
-    contents = "".join([f"## Content {i}:\n{ct}\n" for i, ct in enumerate(state.rerank_context_list)])
-    prompt = generation_prompt(state.question, contents)
-    answer = generation_models(prompt, enable_thinking=True)
+    t0 = time.perf_counter()
+    print("  [GENERATE] ", end="", flush=True)
+    print()
+    answer = generation_models(
+        generation_prompt(state.question, _format(state.rerank_context_list)),
+        enable_thinking=False,
+        max_tokens=250,
+        stream=True,  # tokens print as they arrive
+    )
+    print(f"  [GENERATE] done ({time.perf_counter() - t0:.2f}s)")
     return {"final_answer": answer}
 
-def should_generate(state: AgentState):
-    if state.retry_count >= 2 or state.is_content_valid:
-        return "generate"
-    return "retry"
 
+def needs_web(state: AgentState):
+    # Cheap, LLM-free check: is even the best passage clearly relevant?
+    return "web" if state.top_score < RERANK_MIN else "generate"
+
+
+# ---------- graph ----------
 workflow = StateGraph(AgentState)
-
 workflow.add_node("route_databases", route_database)
-workflow.add_node("retrieve_parallel", retrieve_parallel)
+workflow.add_node("retrieve", retrieve)
 workflow.add_node("rerank_context", rerank_context)
-workflow.add_node("filter_content", filter_content)
-workflow.add_node("valid_and_refine", valid_and_refine_node)
 workflow.add_node("search_node", search_node)
 workflow.add_node("generate_answer", generate_answer)
 
 workflow.add_edge(START, "route_databases")
-workflow.add_edge("route_databases", "retrieve_parallel")
-workflow.add_edge("retrieve_parallel", "rerank_context")
-workflow.add_edge("rerank_context", "filter_content")
-workflow.add_edge("filter_content", "valid_and_refine")
-
-workflow.add_conditional_edges(
-    "valid_and_refine",
-    should_generate,
-    {
-        "generate": "generate_answer",
-        "retry": "search_node"
-    }
-)
-
-workflow.add_edge("search_node", "valid_and_refine")
+workflow.add_edge("route_databases", "retrieve")
+workflow.add_edge("retrieve", "rerank_context")
+workflow.add_conditional_edges("rerank_context", needs_web, {"web": "search_node", "generate": "generate_answer"})
+workflow.add_edge("search_node", "generate_answer")
 workflow.add_edge("generate_answer", END)
 
 app = workflow.compile()
 
+
 if __name__ == "__main__":
-    sample_queries = [
+    print(f"Reranker: {RERANK_BACKEND} ({RERANK_MODEL if RERANK_BACKEND == 'llm' else 'embeddings'}), "
+          f"web fallback below {RERANK_MIN}")
+    queries = [
         "Which team won the final match in IPL 2026 and at which venue?",
         "Who scored the most runs or hit the most sixes in the tournament?",
         "What is the capacity of Narendra Modi Stadium, and which team tops the points table?",
-        "Who has the highest strike rate among batters?"
+        "Who has the highest strike rate among batters?",
     ]
-    
-    for q in sample_queries:
-        print("\n" + "=" * 60)
-        print(f"Query: {q}")
-        print("=" * 60)
-        inputs = AgentState(question=q)
-        final_answer = ""
-        
-        for event in app.stream(inputs):
-            for node_name, node_val in event.items():
-                print(f"[Node Complete]: {node_name}")
-                if node_name == "generate_answer":
-                    if isinstance(node_val, dict):
-                        final_answer = node_val.get("final_answer", "")
-                    else:
-                        final_answer = getattr(node_val, "final_answer", "")
-
-        print(f"\nFinal Answer:\n{final_answer}")
+    for q in queries:
+        print("\n" + "=" * 65 + f"\nQUERY: {q}\n" + "=" * 65)
+        t0 = time.perf_counter()
+        state = app.invoke({"question": q})
+        print(f"[Total {time.perf_counter() - t0:.2f}s | web used: {state.get('used_web', False)} | "
+              f"top score: {state.get('top_score', 0.0):.2f}]")

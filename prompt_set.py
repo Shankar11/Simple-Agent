@@ -17,42 +17,6 @@ Return strictly a JSON list containing the relevant database keys.
 # Query: {query}
 # Response:"""
 
-def extract_keyinfo_prompt(query: str, contents: str) -> str:
-    return f"""# Task
-Given the user query and the retrieved IPL items, select the zero-based integer indices of all items that are relevant to answering the query.
-
-# Rules
-1. Return ONLY a JSON list of indices. Example: ```json[0, 2]```
-2. If none are relevant, return: ```json[]```
-
-# Query: {query}
-# Contents:
-{contents}
-# Response:"""
-
-def validate_contents_prompt(query: str, contents: str) -> str:
-    return f"""# Task
-Evaluate if the provided cricket records contain sufficient data to answer the query.
-
-# Rules
-1. Return strictly JSON with "yes" or "no": ```json["yes"]``` or ```json["no"]```
-
-# Query: {query}
-# Contents:
-{contents}
-# Response:"""
-
-def supplement_query_prompt(query: str, contents: str) -> str:
-    return f"""# Task
-Formulate a search query to find missing IPL stats or match records online.
-
-# Rules
-1. Return strictly a JSON list with one search query string. Example: ```json["IPL 2026 final match winner and scorecard"]```
-
-# User Query: {query}
-# Current Context:
-{contents}
-# Response:"""
 
 def generation_prompt(query: str, contents: str) -> str:
     return f"""# Background
@@ -61,8 +25,11 @@ You are an expert IPL and cricket analyst. Use the provided context to deliver a
 # Instructions
 1. Cite specific players, runs, wickets, teams, match margins, venues, or points where applicable.
 2. If comparing players or identifying the 'best', synthesize their stats (runs, strike rate, wickets, awards) from the context.
-3. If external web results are included in the context, integrate them smoothly.
-4. If key information is still missing from the context, state what is known and clarify what is missing.
+3. Leaderboard records list players in ranked order; use rank 1 for "most/highest/best" questions.
+4. If external web results are included in the context, integrate them smoothly.
+5. If key information is still missing from the context, state what is known and clarify what is missing.
+6. Answer in at most 4 sentences. Give the final answer directly; never show corrections, re-checks, or "wait" reasoning.
+7. Use only the context. If web results and the records disagree, say which fact comes from which (records may be a mid-season snapshot).
 
 # Context:
 {contents}
